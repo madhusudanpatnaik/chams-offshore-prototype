@@ -1,0 +1,6 @@
+{
+  "name": "CHAMS Offshore Engineering",
+  "description": "Official corporate website for CHAMS Offshore Engineering Pte. Ltd. featuring offshore engineering services, background video hero, interactive construction site map, client portal, and HSE safety standards.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
