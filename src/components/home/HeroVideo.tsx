@@ -1,18 +1,17 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'motion/react';
 import { GlowBadge } from '../ui/GlowBadge';
 import { SpotlightCard } from '../ui/SpotlightCard';
+import { OptimizedImage } from '../ui/OptimizedImage';
 import {
-  Play,
-  Pause,
-  Volume2,
-  VolumeX,
   ShieldCheck,
   MapPin,
   ArrowRight,
   Anchor,
   Sparkles,
-  Zap
+  Zap,
+  Building2,
+  PhoneCall
 } from 'lucide-react';
 
 interface HeroVideoProps {
@@ -26,59 +25,20 @@ export const HeroVideo: React.FC<HeroVideoProps> = ({
   onOpenMap,
   onOpenQuotation
 }) => {
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(true);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-
-  // High quality offshore & marine engineering stock video
-  const videoSourceUrl = "https://assets.mixkit.co/videos/preview/mixkit-large-cargo-ship-in-the-middle-of-the-ocean-41525-large.mp4";
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {
-        // Autoplay policy fallback
-        setIsPlaying(false);
-      });
-    }
-  }, []);
-
-  const togglePlay = () => {
-    if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
-
-  const toggleMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !isMuted;
-      setIsMuted(!isMuted);
-    }
-  };
-
   return (
-    <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-slate-950 pt-20">
-      {/* Background Video Player */}
+    <div className="relative w-full min-h-[85vh] lg:min-h-screen flex items-center justify-center overflow-hidden bg-slate-950 pt-20">
+      {/* Background Image Layer */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
-        <video
-          ref={videoRef}
-          autoPlay
-          loop
-          muted={isMuted}
-          playsInline
-          poster="https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?q=80&w=1920&auto=format&fit=crop"
-          className="w-full h-full object-cover scale-105 filter brightness-75 contrast-110 transition-transform duration-1000"
-        >
-          <source src={videoSourceUrl} type="video/mp4" />
-        </video>
+        <OptimizedImage
+          src="https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?q=80&w=1920&auto=format&fit=crop"
+          alt="Chams Offshore Engineering Tuas Yard"
+          wrapperClassName="w-full h-full"
+          className="w-full h-full object-cover scale-105 filter brightness-60 contrast-110"
+        />
 
-        {/* 21st.dev Style High-Tech Grid Pattern Overlay */}
+        {/* High-Tech Grid Pattern Overlay */}
         <div 
-          className="absolute inset-0 opacity-20 pointer-events-none z-0" 
+          className="absolute inset-0 opacity-20 pointer-events-none z-10" 
           style={{
             backgroundImage: `linear-gradient(rgba(245, 158, 11, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(245, 158, 11, 0.15) 1px, transparent 1px)`,
             backgroundSize: '48px 48px'
@@ -86,12 +46,11 @@ export const HeroVideo: React.FC<HeroVideoProps> = ({
         />
 
         {/* Dark Navy Gradient Overlay Filters */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-slate-950/80 z-1" />
-        <div className="absolute inset-0 bg-radial from-transparent via-slate-950/40 to-slate-950 z-1" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/80 z-10" />
       </div>
 
       {/* Hero Content Container */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 w-full">
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-28 w-full">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -152,11 +111,20 @@ export const HeroVideo: React.FC<HeroVideoProps> = ({
           {/* Action CTAs */}
           <div className="flex flex-wrap items-center gap-4 pt-4">
             <button
-              onClick={onExploreServices}
+              onClick={onOpenQuotation}
               className="px-6 py-3.5 rounded-xl text-sm font-bold text-slate-950 bg-gold-metallic bg-gold-metallic-hover shadow-xl shadow-amber-500/25 transition-all transform hover:-translate-y-1 flex items-center gap-2 cursor-pointer"
             >
+              <PhoneCall className="w-4 h-4 text-slate-950" />
+              <span>Request Fast RFQ / Quotation</span>
+            </button>
+
+            <button
+              onClick={onExploreServices}
+              className="px-6 py-3.5 rounded-xl text-sm font-bold text-slate-200 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 shadow-xl backdrop-blur-md transition-all flex items-center gap-2 cursor-pointer"
+            >
+              <Building2 className="w-4 h-4 text-amber-400" />
               <span>Explore Engineering Services</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4 text-amber-400 ml-1" />
             </button>
 
             <button
@@ -166,40 +134,10 @@ export const HeroVideo: React.FC<HeroVideoProps> = ({
               <MapPin className="w-4 h-4 text-amber-400" />
               <span>Interactive Site Map</span>
             </button>
-
-            <button
-              onClick={onOpenQuotation}
-              className="px-6 py-3.5 rounded-xl text-sm font-bold text-amber-300 hover:text-white bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/40 transition-all flex items-center gap-2 cursor-pointer"
-            >
-              <span>Request Quotation</span>
-            </button>
           </div>
         </motion.div>
-      </div>
-
-      {/* Floating Video Overlay Controls Bottom-Right */}
-      <div className="absolute bottom-6 right-6 z-20 flex items-center gap-3 bg-slate-900/90 border border-slate-800 px-4 py-2 rounded-full backdrop-blur-lg shadow-2xl">
-        <div className="flex items-center gap-2 text-xs text-slate-300 border-r border-slate-800 pr-3">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="font-mono text-[11px] font-semibold text-amber-400">LIVE FEED // RECENT BUILDS</span>
-        </div>
-
-        <button
-          onClick={togglePlay}
-          className="p-1.5 rounded-full hover:bg-slate-800 text-slate-200 hover:text-amber-400 transition-colors"
-          title={isPlaying ? 'Pause Background Video' : 'Play Video'}
-        >
-          {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-        </button>
-
-        <button
-          onClick={toggleMute}
-          className="p-1.5 rounded-full hover:bg-slate-800 text-slate-200 hover:text-amber-400 transition-colors"
-          title={isMuted ? 'Unmute Video Sound' : 'Mute Video'}
-        >
-          {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
-        </button>
       </div>
     </div>
   );
 };
+

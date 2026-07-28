@@ -63,7 +63,7 @@ export default function App() {
           >
             {activeTab === 'home' && (
               <div className="space-y-0">
-                {/* Background Video Hero Header */}
+                {/* Hero Header */}
                 <HeroVideo
                   onExploreServices={() => {
                     const el = document.getElementById('services-overview');
